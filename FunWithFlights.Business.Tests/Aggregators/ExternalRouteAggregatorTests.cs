@@ -4,6 +4,7 @@ using FunWithFlights.Domain;
 using FunWithFlights.Domain.ExternalProviders;
 using FunWithFlights.Infrastructure.Contracts.ExternalProviders;
 using FunWithFlights.Infrastructure.Contracts.Repositories;
+using Microsoft.Extensions.Configuration;
 using NSubstitute;
 
 namespace FunWithFlights.Business.Tests.Aggregators;
@@ -14,6 +15,7 @@ public class RouteAggregatorTests
     private IExternalRouteProvider _externalRouteProvider1 = null!;
     private IExternalRouteProvider _externalRouteProvider2 = null!;
     private IExternalProviderRepository _externalProviderRepository = null!;
+    private IConfiguration _configuration = null!;
     
     private IExternalRouteAggregator _externalRouteAggregator = null!;
 
@@ -28,8 +30,9 @@ public class RouteAggregatorTests
         _externalProviderRepository = Substitute.For<IExternalProviderRepository>();
         _externalRouteProvider1 = Substitute.For<IExternalRouteProvider>();
         _externalRouteProvider2 = Substitute.For<IExternalRouteProvider>();
+        _configuration = Substitute.For<IConfiguration>();
 
-        _externalRouteAggregator = new ExternalRouteAggregator(_externalRouteProviderFactory, _externalProviderRepository);
+        _externalRouteAggregator = new ExternalRouteAggregator(_externalRouteProviderFactory, _externalProviderRepository, _configuration);
         _externalProviderRepository.GetAllAsync().ReturnsForAnyArgs(new [] { Provider1, Provider2});
         _externalRouteProviderFactory.Get(Provider1).Returns(_externalRouteProvider1);
         _externalRouteProviderFactory.Get(Provider2).Returns(_externalRouteProvider2);

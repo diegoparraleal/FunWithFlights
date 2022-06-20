@@ -1,3 +1,5 @@
-Code,Name,Url
-F1,Flights 1,http://ec2-3-70-19-16.eu-central-1.compute.amazonaws.com:8000/provider/flights1
-F2,Flights 2,http://ec2-3-70-19-16.eu-central-1.compute.amazonaws.com:8000/provider/flights2
+Code,Source,Url
+A1,A,http://ec2-3-70-19-16.eu-central-1.compute.amazonaws.com:8000/provider/flights1
+A2,A,http://ec2-3-70-19-16.eu-central-1.compute.amazonaws.com:8000/provider/flights2
+B1,B,http://ec2-3-70-19-16.eu-central-1.compute.amazonaws.com:8000/provider/flights1
+B2,B,http://ec2-3-70-19-16.eu-central-1.compute.amazonaws.com:8000/provider/flights2

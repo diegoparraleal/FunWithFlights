@@ -1,3 +1,5 @@
-Code,Name,Url
-F1,Flights 1,http://ec2-3-70-19-16.eu-central-1.compute.amazonaws.com:8000/provider/flights1
-F2,Flights 2,http://ec2-3-70-19-16.eu-central-1.compute.amazonaws.com:8000/provider/flights2
+Code,Source,Url
+AM1,Amazon,http://ec2-3-70-19-16.eu-central-1.compute.amazonaws.com:8000/provider/flights1
+AM2,Amazon,http://ec2-3-70-19-16.eu-central-1.compute.amazonaws.com:8000/provider/flights2
+AZ1,Azure,https://funwithflights0sa.blob.core.windows.net/providers/provider1.json?sp=r&st=2022-06-20T08:07:23Z&se=2023-06-20T16:07:23Z&spr=https&sv=2021-06-08&sr=b&sig=MdF4xNllAUXgB8eYMOGaz0iTZqy6uGPvL8LfBjMUxPQ%3D
+AZ2,Azure,https://funwithflights0sa.blob.core.windows.net/providers/provider2.json?sp=r&st=2022-06-20T08:08:52Z&se=2023-06-20T16:08:52Z&spr=https&sv=2021-06-08&sr=b&sig=60tFJfEudR0Ph5NH9s0GD2yCrgT1bW2PCj32gIj7t9M%3D

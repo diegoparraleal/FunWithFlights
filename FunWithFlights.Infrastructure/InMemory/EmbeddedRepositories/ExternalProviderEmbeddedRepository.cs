@@ -13,7 +13,13 @@ public class ExternalProviderEmbeddedRepository: CsvEmbeddedRepository<string, E
     protected override ExternalProvider MapRecord(Dictionary<string, string> record)
         => new (
             record.MaybeGet("Code").ValueOrDefault(),
-            record.MaybeGet("Name").ValueOrDefault(),
+            record.MaybeGet("Source").ValueOrDefault(),
             record.MaybeGet("Url").Then(x => new Uri(x)).ValueOrDefault()
         );
+
+    public async Task<IReadOnlyCollection<ExternalProvider>> GetAllBySourceAsync(string source)
+    {
+        var results = await GetAllAsync();
+        return results.Where(x => x.Source == source).AsReadOnly();
+    }
 }

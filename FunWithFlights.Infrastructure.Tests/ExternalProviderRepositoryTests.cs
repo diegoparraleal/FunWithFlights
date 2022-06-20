@@ -17,21 +17,22 @@ public class ExternalProviderRepositoryTests
     }
 
     [Test]
-    public async Task Should_load_all_externalProviders()
+    public async Task Should_load_all_external_providers_by_source()
     {
         // Act
-        var results = await _externalProviderRepository.GetAllAsync();
+        var results = await _externalProviderRepository.GetAllBySourceAsync("B");
 
         // Assert
         Assert.That(results.Count, Is.EqualTo(2));
-        Assert.That(results.First().Name, Is.EqualTo("Flights 1"));
+        Assert.That(results.First().Source, Is.EqualTo("B"));
+        Assert.That(results.First().Code, Is.EqualTo("B1"));
     }
     
     [Test]
     public async Task Should_get_equipment_by_key()
     {
         // Act
-        var results = await _externalProviderRepository.GetByKeyAsync("F2");
+        var results = await _externalProviderRepository.GetByKeyAsync("A2");
 
         // Assert
         Assert.That(results.HasValue, Is.True);
