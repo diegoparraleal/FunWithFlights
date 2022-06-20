@@ -11,6 +11,7 @@ export function Routes() {
   const state = context.state;
   const results = state.route.results;
   const loading = state.route.loading;
+  const error = state.route.error;
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
 
@@ -20,13 +21,15 @@ export function Routes() {
     dispatch(Actions.RouteActions.search({from, to}));
   }, [ from, to, dispatch]);
 
+  const errorImage = "https://seupdateblog.files.wordpress.com/2019/01/server-error-what-is-5xx-http-status-error.jpg";
+  const welcomeImage = "https://www.airlive.net/wp-content/uploads/2021/06/airport-3511342_1280.jpg";
   const contents = loading
     ? <p><em>Loading...</em></p>
     : results === null 
           ? <img 
-              className="welcome-image" 
-              alt="welcome" 
-              src="https://www.airlive.net/wp-content/uploads/2021/06/airport-3511342_1280.jpg" 
+              className="filler-image" 
+              alt={error ? "error": "welcome"} 
+              src={error ? errorImage: welcomeImage}
             />
           : <RouteTable results={results} />;
   
