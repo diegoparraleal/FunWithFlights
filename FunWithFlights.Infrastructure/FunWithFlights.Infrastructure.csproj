@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\FunWithFlights.Core\FunWithFlights.Core.csproj" />
+      <ProjectReference Include="..\FunWithFlights.Domain\FunWithFlights.Domain.csproj" />
+      <ProjectReference Include="..\FunWithFlights.Infrastructure.Contracts\FunWithFlights.Infrastructure.Contracts.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="CSharpFunctionalExtensions" Version="2.29.2" />
+      <PackageReference Include="CsvHelper" Version="27.2.1" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="JetBrains.Annotations">
+        <HintPath>..\..\..\.nuget\packages\jetbrains.annotations\2022.1.0\lib\netstandard2.0\JetBrains.Annotations.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+        <HintPath>..\..\..\..\..\usr\local\share\dotnet\shared\Microsoft.AspNetCore.App\6.0.5\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="InMemory\Csv\Airlines.csv" />
+      <EmbeddedResource Include="InMemory\Csv\Airlines.csv" />
+      <None Remove="InMemory\Csv\Aircrafts.csv" />
+      <EmbeddedResource Include="InMemory\Csv\Aircrafts.csv" />
+      <None Remove="InMemory\Csv\AirportDistances.csv" />
+      <EmbeddedResource Include="InMemory\Csv\AirportDistances.csv" />
+      <None Remove="InMemory\Csv\Airports.csv" />
+      <EmbeddedResource Include="InMemory\Csv\Airports.csv" />
+      <None Remove="InMemory\Csv\ExternalProviders.csv" />
+      <EmbeddedResource Include="InMemory\Csv\ExternalProviders.csv" />
+    </ItemGroup>
+
+</Project>

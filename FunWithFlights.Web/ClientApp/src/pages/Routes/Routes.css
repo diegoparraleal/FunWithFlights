@@ -1,0 +1,5 @@
+.welcome-image{
+    /*noinspection CssInvalidPropertyValue*/
+    width: -webkit-fill-available;
+    margin-top: 32px;
+}

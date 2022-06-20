@@ -1,0 +1,69 @@
+.not-found{
+    /*noinspection CssInvalidPropertyValue*/
+    width: -webkit-fill-available;
+    margin-top: 32px;
+}
+
+.route-table{
+    padding: 16px 0;
+}
+
+.composite-route-item{
+    margin: 16px 0;
+    padding: 16px 0;
+    list-style: none;
+    border: 1px solid #999999;
+    border-radius: 8px;
+    position: relative;
+}
+
+.composite-route-item ul {
+    padding: 0;
+}
+
+.composite-route-item li {
+    list-style: none;
+}
+
+.composite-route-item span{
+    display: flex;
+}
+
+.composite-route-description {
+    padding: 0 16px;
+    flex-grow: 1;
+    color: #bbbbbb;
+}
+
+.composite-route-num-stops {
+    padding: 0 16px;
+}
+
+.composite-route-distance {
+    position: absolute;
+    right: 16px;
+    top: 48px;
+    font-size: 12px;
+}
+
+.route-item {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    margin: 16px;
+    border: 1px dashed #999999;
+    border-radius: 8px;
+}
+
+.route-item h4.title{
+    font-weight: bold;
+    min-width: 90px;
+}
+
+.route-item h4{
+    font-weight: lighter;
+}
+
+.route-item h6{
+    font-size: smaller;
+}
