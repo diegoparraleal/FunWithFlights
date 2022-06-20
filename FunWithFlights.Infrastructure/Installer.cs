@@ -1,4 +1,6 @@
 using FunWithFlights.Core.DependencyInjection;
+using FunWithFlights.Infrastructure.Cache;
+using FunWithFlights.Infrastructure.Contracts.Cache;
 using FunWithFlights.Infrastructure.Contracts.ExternalProviders;
 using FunWithFlights.Infrastructure.Contracts.Repositories;
 using FunWithFlights.Infrastructure.ExternalProviders;
@@ -20,6 +22,7 @@ public class Installer: IInstaller
     public void RegisterDependencies(IServiceCollection services)
     {
         services.AddSingleton<IExternalRouteProviderFactory, ExternalRouteProviderFactory>();
+        services.AddSingleton<ICacheProvider, CacheProvider>();
 
         // NOTE: Here we can switch implementations based on ENV flags. e.g. using TableStorage
         services.AddSingleton<IAirlineRepository>(new AirlineEmbeddedRepository(AirlineCsv) );

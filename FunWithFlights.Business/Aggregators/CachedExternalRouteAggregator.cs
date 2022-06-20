@@ -1,9 +1,8 @@
 using CSharpFunctionalExtensions;
-using FunWithFlights.Core.Cache;
-using FunWithFlights.Core.Time;
 using FunWithFlights.Domain;
 using FunWithFlights.Domain.Airports;
 using FunWithFlights.Domain.ExternalProviders;
+using FunWithFlights.Infrastructure.Contracts.Cache;
 
 namespace FunWithFlights.Business.Aggregators;
 
@@ -21,29 +20,26 @@ public interface ICachedExternalRouteAggregator : IExternalRouteAggregator
 public class CachedExternalRouteAggregator: ICachedExternalRouteAggregator
 {
     private readonly IExternalRouteAggregator _externalRouteAggregator;
+    private readonly ICacheProvider _cacheProvider;
     private const int MinutesToExpire = 60;
-    private readonly CachedResult<State> _cachedResult;
 
-    public CachedExternalRouteAggregator(IExternalRouteAggregator externalRouteAggregator, IClock clock)
+    public CachedExternalRouteAggregator(IExternalRouteAggregator externalRouteAggregator, ICacheProvider cacheProvider)
     {
         _externalRouteAggregator = externalRouteAggregator;
-        _cachedResult = new CachedResult<State>(
-            TimeSpan.FromMinutes(MinutesToExpire),
-            LoadAsync,
-            clock);
+        _cacheProvider = cacheProvider;
     }
 
-    public async Task<IReadOnlyCollection<ExternalRoute>> ExecuteAsync() => (await _cachedResult.GetAsync()).Routes;
+    public async Task<IReadOnlyCollection<ExternalRoute>> ExecuteAsync() => (await GetStateAsync()).Routes;
 
     public async Task<IEnumerable<RouteKey>> GetRoutesFrom(AirportCode airportCode)
     {
-        var lookup = (await _cachedResult.GetAsync()).LookupPerSourceAirport;
+        var lookup = (await GetStateAsync()).LookupPerSourceAirport;
         return lookup.TryFind(airportCode).GetValueOrDefault(Array.Empty<RouteKey>());
     }
 
     public async Task<Maybe<ExternalRoute>> GetRouteByKey(RouteKey key)
     {
-        var lookup = (await _cachedResult.GetAsync()).LookupPerRouteKey;
+        var lookup = (await GetStateAsync()).LookupPerRouteKey;
         return lookup.TryFind(key);    
     }
 
@@ -55,4 +51,7 @@ public class CachedExternalRouteAggregator: ICachedExternalRouteAggregator
             .ToDictionary(k => k.Key, v=> v.Select(RouteKey.FromExternalRoute));
         return new State(results, results.ToDictionary(RouteKey.FromExternalRoute), sourceAirportLookup);
     }
+
+    private async Task<State> GetStateAsync() =>
+        await _cacheProvider.GetAsync(CacheKey.Routes, LoadAsync, TimeSpan.FromMinutes(MinutesToExpire));
 }

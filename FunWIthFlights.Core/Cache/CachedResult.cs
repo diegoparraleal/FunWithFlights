@@ -4,7 +4,8 @@ using FunWithFlights.Core.Time;
 
 namespace FunWithFlights.Core.Cache;
 
-public interface ICachedResult<T>
+public interface ICachedResult {}
+public interface ICachedResult<T>: ICachedResult
 {
     Task<T> GetAsync();
 }
@@ -29,7 +30,7 @@ public class CachedResult<T>: ICachedResult<T>
     {
         if (!_maybeResult.TryGet(out var result)) return await RefreshAsync();
         if (!_maybeLastExecution.TryGet(out var lastExecution)) return await RefreshAsync();
-        if (lastExecution + _toExpire < DateTime.Now) return await RefreshAsync();
+        if (lastExecution + _toExpire < _clock.Now) return await RefreshAsync();
         return result;
     }
 
@@ -39,7 +40,7 @@ public class CachedResult<T>: ICachedResult<T>
         try
         {
             _maybeResult = await _callback();
-            _maybeLastExecution = DateTime.Now;
+            _maybeLastExecution = _clock.Now;
         
             return _maybeResult.GetValueOrThrow("Cached result could not be refreshed");
         }
