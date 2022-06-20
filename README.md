@@ -1,4 +1,4 @@
-# Fun with Flags
+# Fun with Flights
 
 Project organization
 
